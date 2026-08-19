@@ -1,5 +1,6 @@
 import PortfolioShell from "@/components/layout/PortfolioShell";
 import HudPanel from "@/components/ui/HudPanel";
+import GalaxyCanvas from "@/components/galaxy/GalaxyCanvas";
 
 function Status({
   label,
@@ -98,45 +99,31 @@ export default function Home() {
 
           {/* GALAXY CENTER */}
 
-          <div className="relative flex min-h-[600px] items-center justify-center">
+          <div className="relative min-h-[600px] overflow-hidden">
+  <GalaxyCanvas />
 
-            {/* ORBITS */}
+  <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+    <div className="text-center">
+      <p className="mb-4 font-mono text-[8px] tracking-[0.5em] text-[#d7ff00]">
+        DIGITAL UNIVERSE
+      </p>
 
-            <div className="absolute h-[500px] w-[500px] rounded-full border border-[#d7ff00]/10" />
+      <h1 className="text-7xl font-semibold tracking-[-0.07em] text-white sm:text-8xl xl:text-9xl">
+        SALIM
+      </h1>
 
-            <div className="absolute h-[390px] w-[390px] rounded-full border border-[#d7ff00]/10" />
+      <p className="mt-5 text-[9px] tracking-[0.25em] text-white/35">
+        DEVELOPER • AI BUILDER • CREATOR
+      </p>
 
-            <div className="absolute h-[280px] w-[280px] rounded-full border border-[#d7ff00]/15" />
+      <div className="mx-auto mt-8 h-px w-40 bg-gradient-to-r from-transparent via-[#d7ff00] to-transparent" />
 
-            <div className="absolute h-[170px] w-[170px] rounded-full border border-[#d7ff00]/20" />
-
-
-            {/* CENTER */}
-
-            <div className="relative z-10 text-center">
-
-              <p className="mb-4 font-mono text-[8px] tracking-[0.5em] text-[#d7ff00]">
-                DIGITAL UNIVERSE
-              </p>
-
-              <h1 className="text-7xl font-semibold tracking-[-0.07em] sm:text-8xl xl:text-9xl">
-                SALIM
-              </h1>
-
-              <p className="mt-5 text-[9px] tracking-[0.25em] text-white/35">
-                DEVELOPER • AI BUILDER • CREATOR
-              </p>
-
-              <div className="mx-auto mt-8 h-px w-40 bg-gradient-to-r from-transparent via-[#d7ff00] to-transparent" />
-
-              <p className="mt-6 font-mono text-[7px] tracking-[0.2em] text-white/25">
-                GALAXY CORE // STANDBY
-              </p>
-
-            </div>
-
-          </div>
-
+      <p className="mt-6 font-mono text-[7px] tracking-[0.2em] text-white/25">
+        GALAXY CORE // ONLINE
+      </p>
+    </div>
+  </div>
+</div>
 
           {/* RIGHT */}
 
