@@ -1,69 +1,76 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#030303]">
+      {/* Background grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(215,255,0,0.25) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(215,255,0,0.25) 1px, transparent 1px)
+          `,
+          backgroundSize: "80px 80px",
+        }}
+      />
+
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d7ff00]/5 blur-[160px]" />
+
+      {/* HUD */}
+      <div className="absolute left-8 top-8 font-mono text-xs tracking-[0.25em] text-[#777]">
+        PROJECT GALAXY
+      </div>
+
+      <div className="absolute right-8 top-8 flex items-center gap-2 font-mono text-xs tracking-[0.15em] text-[#777]">
+        <span className="h-2 w-2 rounded-full bg-[#d7ff00] shadow-[0_0_12px_#d7ff00]" />
+
+        SYSTEM ONLINE
+      </div>
+
+      {/* Main */}
+      <section className="relative z-10 text-center">
+        <p className="mb-5 font-mono text-xs tracking-[0.45em] text-[#d7ff00]">
+          DIGITAL UNIVERSE
+        </p>
+
+        <h1 className="text-6xl font-semibold tracking-[-0.05em] sm:text-8xl lg:text-9xl">
+          SALIM
+        </h1>
+
+        <p className="mt-5 text-sm tracking-[0.25em] text-[#777] sm:text-base">
+          DEVELOPER • AI BUILDER • CREATOR
+        </p>
+
+        <button
+          className="
+            group mt-12
+            border border-[#d7ff00]/30
+            px-8 py-4
+            font-mono text-xs
+            tracking-[0.25em]
+            text-[#d7ff00]
+            transition-all duration-300
+            hover:border-[#d7ff00]
+            hover:bg-[#d7ff00]
+            hover:text-black
+            hover:shadow-[0_0_40px_rgba(215,255,0,0.25)]
+          "
+        >
+          ENTER UNIVERSE
+          <span className="ml-4 inline-block transition-transform duration-300 group-hover:translate-x-2">
+            →
+          </span>
+        </button>
+      </section>
+
+      {/* Bottom HUD */}
+      <div className="absolute bottom-8 left-8 font-mono text-[10px] tracking-[0.2em] text-[#555]">
+        UNIVERSE // 001
+      </div>
+
+      <div className="absolute bottom-8 right-8 font-mono text-[10px] tracking-[0.2em] text-[#555]">
+        BUILD 01.00
+      </div>
+    </main>
   );
 }
