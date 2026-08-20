@@ -9,13 +9,22 @@ type Vector3Data = {
 type GalaxyState = {
   selectedProjectId: string | null;
 
-  selectedProjectPosition: Vector3Data | null;
+  selectedProjectPosition:
+    Vector3Data | null;
 
-  selectProject: (id: string) => void;
+  projectWorldOpen: boolean;
+
+  selectProject: (
+    id: string
+  ) => void;
 
   setSelectedProjectPosition: (
     position: Vector3Data
   ) => void;
+
+  openProjectWorld: () => void;
+
+  closeProjectWorld: () => void;
 
   clearProject: () => void;
 };
@@ -25,6 +34,8 @@ export const useGalaxyStore =
     selectedProjectId: null,
 
     selectedProjectPosition: null,
+
+    projectWorldOpen: false,
 
     selectProject: (id) =>
       set({
@@ -39,9 +50,23 @@ export const useGalaxyStore =
           position,
       }),
 
+    openProjectWorld: () =>
+      set({
+        projectWorldOpen: true,
+      }),
+
+    closeProjectWorld: () =>
+      set({
+        projectWorldOpen: false,
+      }),
+
     clearProject: () =>
       set({
         selectedProjectId: null,
-        selectedProjectPosition: null,
+
+        selectedProjectPosition:
+          null,
+
+        projectWorldOpen: false,
       }),
   }));

@@ -2,9 +2,23 @@
 
 import { useEffect } from "react";
 
-import { useGalaxyStore } from "@/store/galaxyStore";
+import {
+  useGalaxyStore,
+} from "@/store/galaxyStore";
 
 export default function GalaxyControls() {
+  const projectWorldOpen =
+    useGalaxyStore(
+      (state) =>
+        state.projectWorldOpen
+    );
+
+  const closeProjectWorld =
+    useGalaxyStore(
+      (state) =>
+        state.closeProjectWorld
+    );
+
   const clearProject =
     useGalaxyStore(
       (state) =>
@@ -16,11 +30,19 @@ export default function GalaxyControls() {
       event: KeyboardEvent
     ) => {
       if (
-        event.key ===
+        event.key !==
         "Escape"
       ) {
-        clearProject();
+        return;
       }
+
+      if (projectWorldOpen) {
+        closeProjectWorld();
+
+        return;
+      }
+
+      clearProject();
     };
 
     window.addEventListener(
@@ -34,7 +56,11 @@ export default function GalaxyControls() {
         handleKeyDown
       );
     };
-  }, [clearProject]);
+  }, [
+    projectWorldOpen,
+    closeProjectWorld,
+    clearProject,
+  ]);
 
   return null;
 }

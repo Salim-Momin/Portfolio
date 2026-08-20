@@ -2,6 +2,7 @@ import PortfolioShell from "@/components/layout/PortfolioShell";
 import HudPanel from "@/components/ui/HudPanel";
 import GalaxyCanvas from "@/components/galaxy/GalaxyCanvas";
 import ProjectDetailPanel from "@/components/hud/ProjectDetailPanel";
+import PlanetScan from "@/components/project/PlanetScan";
 
 function Status({
   label,
@@ -29,6 +30,7 @@ export default function Home() {
   return (
     <PortfolioShell>
       <ProjectDetailPanel />
+      <PlanetScan />
       <section className="relative min-h-[calc(100vh-128px)] overflow-hidden">
 
         {/* GRID */}

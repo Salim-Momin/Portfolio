@@ -12,6 +12,10 @@ export default function ProjectDetailPanel() {
         state.selectedProjectId
     );
 
+  const openProjectWorld = useGalaxyStore(
+    (state) => state.openProjectWorld
+  );
+
   const clearProject =
     useGalaxyStore(
       (state) =>
@@ -62,21 +66,23 @@ export default function ProjectDetailPanel() {
               project.accent,
           }}
         >
-          PROJECT NODE
+          PLANETARY OBJECT
         </p>
 
         <h2 className="mt-3 text-2xl font-semibold text-white">
           {project.name}
         </h2>
 
-        <p className="mt-2 text-sm text-white/40">
-          {project.category}
+        <div className="mt-2">
+          <p className="text-sm text-white/40">
+            {project.category}
+          </p>
+
           <div className="mt-4 flex items-center gap-2">
             <span
               className="h-1.5 w-1.5 rounded-full"
               style={{
-                background:
-                  project.accent,
+                background: project.accent,
                 boxShadow: `0 0 10px ${project.accent}`,
               }}
             />
@@ -85,7 +91,7 @@ export default function ProjectDetailPanel() {
               CAMERA LOCKED
             </span>
           </div>
-        </p>
+        </div>
 
       </div>
 
@@ -94,7 +100,7 @@ export default function ProjectDetailPanel() {
       <div className="mt-6">
 
         <p className="font-mono text-[7px] tracking-[0.2em] text-white/30">
-          TECHNOLOGY STACK
+          ATMOSPHERIC SIGNALS
         </p>
 
         <div className="mt-3 flex flex-wrap gap-2">
@@ -144,12 +150,11 @@ export default function ProjectDetailPanel() {
 
       <div className="mt-6 space-y-2">
 
-        <button className="flex w-full items-center justify-between border border-[#d7ff00]/40 px-4 py-3 font-mono text-[8px] tracking-[0.16em] text-[#d7ff00] transition hover:bg-[#d7ff00] hover:text-black">
-
-          EXPLORE PROJECT
-
-          <ExternalLink size={13} />
-
+        <button
+          onClick={openProjectWorld}
+          className="flex w-full items-center justify-between border border-[#d7ff00]/40 px-4 py-3 font-mono text-[8px] tracking-[0.16em] text-[#d7ff00] transition hover:bg-[#d7ff00] hover:text-black"
+        >
+          INITIATE PLANETARY SCAN
         </button>
 
         <button className="flex w-full items-center justify-between border border-white/10 px-4 py-3 font-mono text-[8px] tracking-[0.16em] text-white/40 transition hover:border-white/30 hover:text-white">
