@@ -13,26 +13,28 @@ export default function GalaxyScene() {
     <Suspense fallback={null}>
       <color attach="background" args={["#030303"]} />
 
-      <ambientLight intensity={0.22} />
+      <ambientLight
+        intensity={0.15}
+      />
 
       <directionalLight
-        position={[4, 4, 5]}
-        intensity={1.4}
+        position={[6, 7, 8]}
+        intensity={2}
         color="#ffffff"
       />
 
       <pointLight
-        position={[0, 0, 2]}
-        intensity={7}
+        position={[0, 0, 0]}
+        intensity={12}
         color="#d7ff00"
-        distance={12}
+        distance={16}
       />
 
       <pointLight
-        position={[-4, -2, 3]}
+        position={[-6, -3, 4]}
         intensity={2}
-        color="#6d8300"
-        distance={10}
+        color="#536600"
+        distance={14}
       />
 
       <StarField />
@@ -44,7 +46,7 @@ export default function GalaxyScene() {
       <ProjectSystem />
 
       <CameraRig />
-      
+
     </Suspense>
   );
 }

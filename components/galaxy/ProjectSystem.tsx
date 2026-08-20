@@ -8,28 +8,41 @@ import ProjectPlanet from "./ProjectPlanet";
 
 function OrbitPath({
   radius,
+  rotation,
 }: {
   radius: number;
+
+  rotation: [
+    number,
+    number,
+    number
+  ];
 }) {
   return (
-    <mesh rotation={[0, 0, 0]}>
-      <torusGeometry
-        args={[
-          radius,
-          0.004,
-          6,
-          220,
-        ]}
-      />
+    <group rotation={rotation}>
 
-      <meshBasicMaterial
-        color="#d7ff00"
-        transparent
-        opacity={0.065}
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-      />
-    </mesh>
+      <mesh>
+        <torusGeometry
+          args={[
+            radius,
+            0.004,
+            6,
+            220,
+          ]}
+        />
+
+        <meshBasicMaterial
+          color="#d7ff00"
+          transparent
+          opacity={0.055}
+          blending={
+            THREE.AdditiveBlending
+          }
+          depthWrite={false}
+        />
+      </mesh>
+
+    </group>
   );
 }
 
@@ -39,8 +52,9 @@ export default function ProjectSystem() {
 
       {projects.map((project) => (
         <OrbitPath
-          key={`orbit-${project.id}`}
-          radius={project.orbitRadius}
+        key={`orbit-${project.id}`}
+        radius={project.orbitRadius}
+        rotation={project.orbitTilt}
         />
       ))}
 

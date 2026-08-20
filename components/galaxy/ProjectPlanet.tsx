@@ -1,6 +1,6 @@
 "use client";
 
-import { Html } from "@react-three/drei";
+import { Html, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import * as THREE from "three";
@@ -16,105 +16,144 @@ export default function ProjectPlanet({
 }: ProjectPlanetProps) {
   const orbitRef = useRef<THREE.Group>(null);
   const planetRef = useRef<THREE.Mesh>(null);
+  const atmosphereRef = useRef<THREE.Mesh>(null);
 
   const [hovered, setHovered] = useState(false);
 
-  useFrame((_, delta) => {
+  const texture = useTexture(project.texture);
+
+  texture.colorSpace = THREE.SRGBColorSpace;
+
+  useFrame((state, delta) => {
     if (orbitRef.current && !hovered) {
-      orbitRef.current.rotation.z += delta * project.orbitSpeed;
+      orbitRef.current.rotation.z +=
+        delta * project.orbitSpeed;
     }
 
     if (planetRef.current) {
-      planetRef.current.rotation.y += delta * 0.18;
-      planetRef.current.rotation.x += delta * 0.04;
+      planetRef.current.rotation.y += delta * 0.1;
+      planetRef.current.rotation.x += delta * 0.01;
 
-      const targetScale = hovered ? 1.22 : 1;
+      const scale = hovered ? 1.18 : 1;
 
       planetRef.current.scale.lerp(
-        new THREE.Vector3(
-          targetScale,
-          targetScale,
-          targetScale
-        ),
+        new THREE.Vector3(scale, scale, scale),
         0.08
       );
+    }
+
+    if (atmosphereRef.current) {
+      const pulse =
+        1 +
+        Math.sin(
+          state.clock.elapsedTime * 2 +
+            project.startAngle
+        ) *
+          0.03;
+
+      atmosphereRef.current.scale.setScalar(pulse);
     }
   });
 
   return (
-    <group
-      ref={orbitRef}
-      rotation={[0, 0, project.startAngle]}
-    >
-      <group position={[project.orbitRadius, 0, 0]}>
-        {/* Planet glow */}
-        <mesh>
+    
+      <group rotation={project.orbitTilt}>
+
+  <group
+    ref={orbitRef}
+    rotation={[
+      0,
+      0,
+      project.startAngle,
+    ]}
+  ></group>
+      <group
+        position={[
+          project.orbitRadius,
+          0,
+          0,
+        ]}
+      >
+        {/* ATMOSPHERE */}
+
+        <mesh ref={atmosphereRef}>
           <sphereGeometry
             args={[
-              project.size * 1.32,
-              32,
-              32,
+              project.size * 1.2,
+              48,
+              48,
             ]}
           />
 
           <meshBasicMaterial
             color={project.color}
             transparent
-            opacity={hovered ? 0.12 : 0.045}
+            opacity={hovered ? 0.12 : 0.04}
             side={THREE.BackSide}
             blending={THREE.AdditiveBlending}
             depthWrite={false}
           />
         </mesh>
 
-        {/* Planet */}
+        {/* REAL TEXTURED PLANET */}
+
         <mesh
           ref={planetRef}
-          onPointerEnter={() => {
+          onPointerEnter={(event) => {
+            event.stopPropagation();
+
             setHovered(true);
-            document.body.style.cursor = "pointer";
+
+            document.body.style.cursor =
+              "pointer";
           }}
-          onPointerLeave={() => {
+          onPointerLeave={(event) => {
+            event.stopPropagation();
+
             setHovered(false);
-            document.body.style.cursor = "default";
+
+            document.body.style.cursor =
+              "default";
           }}
         >
-          <icosahedronGeometry
+          <sphereGeometry
             args={[
               project.size,
-              4,
+              64,
+              64,
             ]}
           />
 
           <meshStandardMaterial
-            color="#080908"
-            roughness={0.62}
-            metalness={0.6}
-            emissive={project.color}
-            emissiveIntensity={hovered ? 1 : 0.4}
+            map={texture}
+            roughness={0.78}
+            metalness={0.12}
           />
         </mesh>
 
-        {/* Tiny energy layer */}
+        {/* ENERGY OUTLINE */}
+
         <mesh>
-          <icosahedronGeometry
+          <sphereGeometry
             args={[
-              project.size * 1.025,
-              2,
+              project.size * 1.015,
+              32,
+              32,
             ]}
           />
 
           <meshBasicMaterial
             color={project.color}
-            wireframe
             transparent
-            opacity={hovered ? 0.32 : 0.11}
+            wireframe
+            opacity={hovered ? 0.16 : 0.035}
             blending={THREE.AdditiveBlending}
             depthWrite={false}
           />
         </mesh>
 
-        {/* Label */}
+        {/* PROJECT LABEL */}
+
         <Html
           position={[
             0,
@@ -126,6 +165,7 @@ export default function ProjectPlanet({
           distanceFactor={8}
         >
           <div className="pointer-events-none whitespace-nowrap text-center">
+
             <p
               className="font-mono text-[6px] tracking-[0.24em]"
               style={{
@@ -138,21 +178,24 @@ export default function ProjectPlanet({
             <p className="mt-1 text-[10px] font-semibold tracking-[0.12em] text-white">
               {project.shortName}
             </p>
+
           </div>
         </Html>
 
-        {/* Hover information */}
+        {/* HOVER CARD */}
+
         {hovered && (
           <Html
             position={[
               0,
-              project.size + 0.75,
+              project.size + 0.8,
               0,
             ]}
             center
           >
-            <div className="pointer-events-none w-[180px] border border-[#d7ff00]/30 bg-black/90 p-3 backdrop-blur-md">
-              <p className="font-mono text-[7px] tracking-[0.2em] text-[#d7ff00]">
+            <div className="pointer-events-none w-[190px] border border-[#d7ff00]/25 bg-black/90 p-3 shadow-[0_0_30px_rgba(215,255,0,0.08)] backdrop-blur-xl">
+
+              <p className="font-mono text-[6px] tracking-[0.2em] text-[#d7ff00]">
                 PROJECT DETECTED
               </p>
 
@@ -160,29 +203,33 @@ export default function ProjectPlanet({
                 {project.name}
               </h3>
 
-              <p className="mt-1 text-[9px] text-white/45">
+              <p className="mt-1 text-[8px] text-white/40">
                 {project.category}
               </p>
 
               <div className="mt-3 flex flex-wrap gap-1">
-                {project.technologies
-                  .slice(0, 4)
-                  .map((tech) => (
+
+                {project.technologies.map(
+                  (tech) => (
                     <span
                       key={tech}
-                      className="border border-white/10 px-1.5 py-1 font-mono text-[6px] text-white/50"
+                      className="border border-white/10 px-1.5 py-1 font-mono text-[6px] text-white/45"
                     >
                       {tech}
                     </span>
-                  ))}
+                  )
+                )}
+
               </div>
 
-              <p className="mt-3 font-mono text-[7px] tracking-[0.15em] text-[#d7ff00]">
+              <p className="mt-3 font-mono text-[6px] tracking-[0.15em] text-[#d7ff00]">
                 CLICK TO EXPLORE →
               </p>
+
             </div>
           </Html>
         )}
+
       </group>
     </group>
   );
