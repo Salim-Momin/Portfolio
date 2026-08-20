@@ -98,33 +98,39 @@ export default function Home() {
 
 
           {/* GALAXY CENTER */}
-
           <div className="relative min-h-[600px] overflow-hidden">
+
   <GalaxyCanvas />
 
-  <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
-    <div className="text-center">
-      <p className="mb-4 font-mono text-[8px] tracking-[0.5em] text-[#d7ff00]">
-        DIGITAL UNIVERSE
-      </p>
+  {/* TOP LABEL */}
 
-      <h1 className="text-7xl font-semibold tracking-[-0.07em] text-white sm:text-8xl xl:text-9xl">
-        SALIM
-      </h1>
+  <div className="pointer-events-none absolute left-1/2 top-10 z-10 -translate-x-1/2 text-center">
 
-      <p className="mt-5 text-[9px] tracking-[0.25em] text-white/35">
-        DEVELOPER • AI BUILDER • CREATOR
-      </p>
+    <p className="font-mono text-[8px] tracking-[0.5em] text-[#d7ff00]">
+      DIGITAL UNIVERSE
+    </p>
 
-      <div className="mx-auto mt-8 h-px w-40 bg-gradient-to-r from-transparent via-[#d7ff00] to-transparent" />
+    <p className="mt-3 text-[8px] tracking-[0.22em] text-white/25">
+      DEVELOPER • AI BUILDER • CREATOR
+    </p>
 
-      <p className="mt-6 font-mono text-[7px] tracking-[0.2em] text-white/25">
-        GALAXY CORE // ONLINE
-      </p>
-    </div>
   </div>
-</div>
 
+  {/* CORE STATUS */}
+
+  <div className="pointer-events-none absolute bottom-10 left-1/2 z-10 -translate-x-1/2">
+
+    <div className="flex items-center gap-3 font-mono text-[7px] tracking-[0.2em] text-white/25">
+
+      <span className="h-1.5 w-1.5 rounded-full bg-[#d7ff00] shadow-[0_0_10px_#d7ff00]" />
+
+      CORE ONLINE
+
+    </div>
+
+  </div>
+
+</div>
           {/* RIGHT */}
 
           <div className="hidden flex-col gap-5 lg:flex">
