@@ -73,6 +73,15 @@ export default function ProjectDetailPanel() {
           {project.name}
         </h2>
 
+          <p
+          className="mt-2 font-mono text-[7px] tracking-[0.2em]"
+          style={{
+            color: project.accent,
+          }}
+        >
+          {project.planetCode}
+        </p>
+
         <div className="mt-2">
           <p className="text-sm text-white/40">
             {project.category}

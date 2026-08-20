@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-
 import {
   ArrowLeft,
   ExternalLink,
@@ -10,57 +9,44 @@ import {
   ShieldCheck,
   Satellite,
 } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
-import {
-  FaGithub,
-} from "react-icons/fa";
-
-import {
-  projects,
-} from "@/data/projects";
-
-import {
-  useGalaxyStore,
-} from "@/store/galaxyStore";
+import { projects } from "@/data/projects";
+import { useGalaxyStore } from "@/store/galaxyStore";
 
 export default function PlanetScan() {
-  const selectedProjectId =
-    useGalaxyStore(
-      (state) =>
-        state.selectedProjectId
-    );
+  const selectedProjectId = useGalaxyStore(
+    (state) => state.selectedProjectId
+  );
 
-  const projectWorldOpen =
-    useGalaxyStore(
-      (state) =>
-        state.projectWorldOpen
-    );
+  const projectWorldOpen = useGalaxyStore(
+    (state) => state.projectWorldOpen
+  );
 
-  const closeProjectWorld =
-    useGalaxyStore(
-      (state) =>
-        state.closeProjectWorld
-    );
+  const closeProjectWorld = useGalaxyStore(
+    (state) => state.closeProjectWorld
+  );
 
-  const project =
-    projects.find(
-      (item) =>
-        item.id ===
-        selectedProjectId
-    );
+  const project = projects.find(
+    (item) => item.id === selectedProjectId
+  );
 
-  if (
-    !projectWorldOpen ||
-    !project
-  ) {
+  if (!projectWorldOpen || !project) {
     return null;
   }
 
+  const isDangerous =
+    project.threatLevel === "ELEVATED";
+
+  const isCommunicationWorld =
+    project.id === "ai-chatbot";
+
+  const isDiagnosticWorld =
+    project.id === "bugreader";
+
   return (
     <div className="planet-scan-enter fixed inset-0 z-[200] overflow-y-auto bg-[#020302] text-white">
-
-      {/* GALACTIC GRID */}
-
+      {/* GRID */}
       <div
         className="pointer-events-none fixed inset-0 opacity-[0.035]"
         style={{
@@ -68,164 +54,168 @@ export default function PlanetScan() {
             linear-gradient(rgba(215,255,0,.3) 1px, transparent 1px),
             linear-gradient(90deg, rgba(215,255,0,.3) 1px, transparent 1px)
           `,
-
-          backgroundSize:
-            "70px 70px",
+          backgroundSize: "70px 70px",
         }}
       />
 
-      {/* PLANET COLOR GLOW */}
-
+      {/* PLANET GLOW */}
       <div
         className="pointer-events-none fixed left-1/2 top-[20%] h-[850px] w-[850px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.07] blur-[220px]"
         style={{
-          background:
-            project.accent,
+          background: project.accent,
         }}
       />
 
       {/* TOP HUD */}
-
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#020302]/90 backdrop-blur-xl">
-
         <div className="mx-auto flex h-20 max-w-[1500px] items-center justify-between px-6 lg:px-10">
-
           <button
-            onClick={
-              closeProjectWorld
-            }
+            onClick={closeProjectWorld}
             className="flex items-center gap-3 font-mono text-[8px] tracking-[0.18em] text-white/40 transition hover:text-[#d7ff00]"
           >
-            <ArrowLeft
-              size={14}
-            />
-
+            <ArrowLeft size={14} />
             RETURN TO ORBIT
           </button>
 
           <div className="flex items-center gap-3">
-
             <span
               className="h-2 w-2 rounded-full"
               style={{
-                background:
-                  project.accent,
-
-                boxShadow:
-                  `0 0 12px ${project.accent}`,
+                background: project.accent,
+                boxShadow: `0 0 12px ${project.accent}`,
               }}
             />
 
             <p className="font-mono text-[8px] tracking-[0.2em] text-white/35">
               PLANETARY DATABASE
-
               <span
                 className="ml-3"
                 style={{
-                  color:
-                    project.accent,
+                  color: project.accent,
                 }}
               >
                 ONLINE
               </span>
             </p>
-
           </div>
-
         </div>
-
       </header>
 
       <main className="relative z-10 mx-auto max-w-[1500px] px-6 pb-32 lg:px-10">
-
-        {/* PLANET HERO */}
-
+        {/* HERO */}
         <section className="grid min-h-[calc(100vh-80px)] items-center gap-14 py-16 xl:grid-cols-[380px_minmax(0,1fr)_360px]">
-
-          {/* LEFT SCAN DATA */}
-
+          {/* LEFT */}
           <div className="space-y-5">
-
             <ScanPanel
-              icon={
-                <Radar size={14} />
-              }
+              icon={<Radar size={14} />}
               label="DESIGNATION"
+              accent={project.accent}
             >
               <p
                 className="text-2xl font-semibold tracking-[0.1em]"
                 style={{
-                  color:
-                    project.accent,
+                  color: project.accent,
                 }}
               >
-                {
-                  project.planetCode
-                }
+                {project.planetCode}
               </p>
             </ScanPanel>
 
             <ScanPanel
-              icon={
-                <Satellite
-                  size={14}
-                />
-              }
+              icon={<Satellite size={14} />}
               label="CLASSIFICATION"
+              accent={project.accent}
             >
               <p className="text-sm leading-6 text-white/75">
-                {
-                  project.classification
-                }
+                {project.classification}
               </p>
             </ScanPanel>
 
             <ScanPanel
-              icon={
-                <Radio size={14} />
-              }
+              icon={<Radio size={14} />}
               label="GALACTIC SECTOR"
+              accent={project.accent}
             >
               <p className="font-mono text-[10px] tracking-[0.15em] text-white/60">
                 {project.sector}
               </p>
             </ScanPanel>
 
-            <div className="grid grid-cols-2 gap-3">
+            <ScanPanel
+              icon={<ShieldCheck size={14} />}
+              label="ENVIRONMENT"
+              accent={project.accent}
+            >
+              <p className="font-mono text-[9px] tracking-[0.12em] text-white/60">
+                {project.environment}
+              </p>
+            </ScanPanel>
 
+            <div className="grid grid-cols-2 gap-3">
               <MiniData
                 label="DISCOVERED"
                 value={project.year}
-                color={
-                  project.accent
-                }
+                color={project.accent}
               />
 
               <MiniData
-                label="STATUS"
-                value={
-                  project.status
-                }
-                color={
-                  project.accent
-                }
+                label="SYSTEM"
+                value={project.status}
+                color={project.accent}
               />
 
-            </div>
+              <MiniData
+                label="SIGNAL"
+                value={project.signalStatus}
+                color={project.accent}
+              />
 
+              <MiniData
+                label="THREAT"
+                value={project.threatLevel}
+                color={
+                  project.threatLevel === "ELEVATED"
+                    ? "#ff3b2f"
+                    : project.accent
+                }
+              />
+            </div>
           </div>
 
           {/* CENTER PLANET */}
-
           <div className="relative flex min-h-[650px] items-center justify-center">
+            {/* BUGREADER CROSS SCAN */}
+            {isDiagnosticWorld && (
+              <>
+                <div className="pointer-events-none absolute h-[620px] w-px rotate-45 bg-gradient-to-b from-transparent via-red-500/20 to-transparent" />
+                <div className="pointer-events-none absolute h-[620px] w-px -rotate-45 bg-gradient-to-b from-transparent via-red-500/20 to-transparent" />
+              </>
+            )}
+
+            {/* AI CHATBOT SIGNAL WAVES */}
+            {isCommunicationWorld && (
+              <>
+                <div
+                  className="planet-signal-ring pointer-events-none absolute h-[470px] w-[470px] rounded-full border"
+                  style={{
+                    borderColor: `${project.accent}30`,
+                  }}
+                />
+
+                <div
+                  className="planet-signal-ring-delayed pointer-events-none absolute h-[470px] w-[470px] rounded-full border"
+                  style={{
+                    borderColor: `${project.accent}20`,
+                  }}
+                />
+              </>
+            )}
 
             {/* OUTER SCANNER */}
-
             <div
               className="absolute h-[560px] w-[560px] rounded-full border opacity-[0.09]"
               style={{
-                borderColor:
-                  project.accent,
+                borderColor: project.accent,
               }}
             />
 
@@ -234,68 +224,81 @@ export default function PlanetScan() {
             <div
               className="absolute h-[390px] w-[390px] rounded-full opacity-[0.09] blur-[80px]"
               style={{
-                background:
-                  project.accent,
+                background: project.accent,
               }}
             />
 
             {/* CROSSHAIR */}
-
             <div className="absolute left-1/2 top-8 h-20 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
-
             <div className="absolute bottom-8 left-1/2 h-20 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
-
             <div className="absolute left-8 top-1/2 h-px w-20 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
             <div className="absolute right-8 top-1/2 h-px w-20 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
+            {/* PERFECT ROUND PLANET */}
+            <div
+            className="relative z-10 h-[400px] w-[400px] overflow-hidden rounded-full"
+            style={{
+                boxShadow: `0 0 70px ${project.accent}25`,
+            }}
+            >
             <Image
-              src={
-                project.image
-              }
-              alt={
-                project.name
-              }
-              width={600}
-              height={600}
-              priority
-              className="relative z-10 h-[400px] w-[400px] rounded-full object-cover drop-shadow-[0_0_80px_rgba(215,255,0,0.15)]"
+                src={project.image}
+                alt={project.name}
+                fill
+                priority
+                className="object-cover"
             />
 
+            {/* spherical lighting */}
+            <div
+                className="pointer-events-none absolute inset-0 rounded-full"
+                style={{
+                background: `
+                    radial-gradient(
+                    circle at 32% 25%,
+                    rgba(255,255,255,0.12),
+                    transparent 30%
+                    )
+                `,
+                boxShadow: `
+                    inset -35px -25px 60px rgba(0,0,0,0.55),
+                    inset 15px 10px 30px rgba(255,255,255,0.03)
+                `,
+                }}
+            />
+            </div>
+
             {/* SCAN STATUS */}
-
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
-
-              <div className="flex items-center gap-3 font-mono text-[7px] tracking-[0.22em] text-white/30">
-
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center">
+              <div className="flex items-center justify-center gap-3 font-mono text-[7px] tracking-[0.22em] text-white/30">
                 <span
-                  className="h-1.5 w-1.5 rounded-full"
+                  className="h-1.5 w-1.5 animate-pulse rounded-full"
                   style={{
-                    background:
-                      project.accent,
-
-                    boxShadow:
-                      `0 0 10px ${project.accent}`,
+                    background: project.accent,
+                    boxShadow: `0 0 10px ${project.accent}`,
                   }}
                 />
 
                 PLANETARY SCAN COMPLETE
-
               </div>
 
+              <p
+                className="mt-3 font-mono text-[6px] tracking-[0.18em]"
+                style={{
+                  color: project.accent,
+                }}
+              >
+                {project.scanMessage}
+              </p>
             </div>
-
           </div>
 
-          {/* RIGHT DESCRIPTION */}
-
+          {/* RIGHT */}
           <div>
-
             <p
               className="font-mono text-[8px] tracking-[0.3em]"
               style={{
-                color:
-                  project.accent,
+                color: project.accent,
               }}
             >
               PLANETARY ANALYSIS
@@ -306,211 +309,172 @@ export default function PlanetScan() {
             </h1>
 
             <p className="mt-7 text-sm leading-8 text-white/45">
-              {
-                project.planetaryDescription
-              }
+              {project.planetaryDescription}
             </p>
 
+            {isDangerous && (
+              <div className="mt-7 border border-red-500/20 bg-red-500/[0.04] p-4">
+                <div className="flex items-center gap-3">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.8)]" />
+
+                  <p className="font-mono text-[7px] tracking-[0.18em] text-red-400">
+                    WARNING — ANOMALOUS SOFTWARE ACTIVITY
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* PLANETARY FINGERPRINT */}
+            <div className="mt-8">
+              <p className="font-mono text-[6px] tracking-[0.18em] text-white/20">
+                PLANETARY FINGERPRINT
+              </p>
+
+              <div className="mt-3 flex h-8 items-end gap-[3px]">
+                {Array.from({ length: 32 }).map((_, index) => {
+                  const height =
+                    20 +
+                    ((index * 17 +
+                      project.id.length * 11) %
+                      80);
+
+                  return (
+                    <span
+                      key={index}
+                      className="w-[2px]"
+                      style={{
+                        height: `${height}%`,
+                        background: project.accent,
+                        opacity:
+                          0.15 +
+                          (height / 100) * 0.45,
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+
             <div className="mt-10 border-t border-white/10 pt-6">
-
               <div className="flex items-center gap-3">
-
                 <ShieldCheck
                   size={15}
                   style={{
-                    color:
-                      project.accent,
+                    color: project.accent,
                   }}
                 />
 
                 <p className="font-mono text-[7px] tracking-[0.2em] text-white/35">
                   EXPLORATION AUTHORIZED
                 </p>
-
               </div>
-
             </div>
-
           </div>
-
         </section>
 
         {/* ATMOSPHERIC COMPOSITION */}
-
         <section className="border-t border-white/10 py-24">
-
           <SectionHeading
             number="01"
             title="ATMOSPHERIC COMPOSITION"
             subtitle="PRIMARY TECHNOLOGICAL ELEMENTS"
-            accent={
-              project.accent
-            }
+            accent={project.accent}
           />
 
           <div className="mt-12 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
-
             {project.technologies.map(
-              (
-                technology,
-                index
-              ) => (
+              (technology, index) => (
                 <div
-                  key={
-                    technology
-                  }
+                  key={technology}
                   className="relative min-h-[150px] border border-white/10 bg-black/20 p-5"
                 >
-
                   <p className="font-mono text-[6px] tracking-[0.17em] text-white/25">
                     ELEMENT //
-
-                    {String(
-                      index + 1
-                    ).padStart(
-                      2,
-                      "0"
-                    )}
+                    {String(index + 1).padStart(2, "0")}
                   </p>
 
                   <p
                     className="mt-8 text-sm font-medium"
                     style={{
-                      color:
-                        project.accent,
+                      color: project.accent,
                     }}
                   >
-                    {
-                      technology
-                    }
+                    {technology}
                   </p>
 
                   <div className="absolute bottom-5 left-5 right-5 h-px bg-white/10">
-
                     <div
                       className="h-full"
                       style={{
-                        width:
-                          `${65 + ((index * 7) % 30)}%`,
-
-                        background:
-                          project.accent,
+                        width: `${65 + ((index * 7) % 30)}%`,
+                        background: project.accent,
                       }}
                     />
-
                   </div>
-
                 </div>
               )
             )}
-
           </div>
 
           <p className="mt-4 font-mono text-[6px] tracking-[0.13em] text-white/20">
             // BARS REPRESENT SYSTEM PRESENCE, NOT CODE PERCENTAGE
           </p>
-
         </section>
 
-        {/* PLANETARY CAPABILITIES */}
-
+        {/* CAPABILITIES */}
         <section className="border-t border-white/10 py-24">
-
           <SectionHeading
             number="02"
             title="PLANETARY CAPABILITY SYSTEMS"
             subtitle="ACTIVE INFRASTRUCTURE"
-            accent={
-              project.accent
-            }
+            accent={project.accent}
           />
 
           <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-
             {project.features.map(
-              (
-                feature,
-                index
-              ) => (
+              (feature, index) => (
                 <CapabilityCard
-                  key={
-                    feature.name
-                  }
-                  number={
-                    index + 1
-                  }
-                  name={
-                    feature.name
-                  }
-                  description={
-                    feature.description
-                  }
-                  accent={
-                    project.accent
-                  }
+                  key={feature.name}
+                  number={index + 1}
+                  name={feature.name}
+                  description={feature.description}
+                  accent={project.accent}
                 />
               )
             )}
-
           </div>
-
         </section>
 
-        {/* SOURCE TRANSMISSION */}
-
+        {/* ACCESS */}
         <section className="border-t border-white/10 py-24">
-
           <SectionHeading
             number="03"
             title="EXPLORATION CHANNELS"
             subtitle="EXTERNAL ACCESS"
-            accent={
-              project.accent
-            }
+            accent={project.accent}
           />
 
           <div className="mt-12 grid gap-4 lg:grid-cols-2">
-
             <AccessPanel
               title="ACCESS SOURCE ARCHIVES"
               subtitle="GitHub Repository"
               description="Inspect the source infrastructure, project history and implementation details stored in the planetary archives."
-              accent={
-                project.accent
-              }
-              icon={
-                <FaGithub
-                  size={22}
-                />
-              }
-              href={
-                project.github
-              }
+              accent={project.accent}
+              icon={<FaGithub size={22} />}
+              href={project.github}
             />
 
             <AccessPanel
               title="ESTABLISH CONNECTION"
               subtitle="Live Project"
               description="Open a direct communication channel to the deployed project environment when an active transmission is available."
-              accent={
-                project.accent
-              }
-              icon={
-                <ExternalLink
-                  size={20}
-                />
-              }
-              href={
-                project.demo
-              }
+              accent={project.accent}
+              icon={<ExternalLink size={20} />}
+              href={project.demo}
             />
-
           </div>
-
         </section>
-
       </main>
-
     </div>
   );
 }
@@ -518,31 +482,39 @@ export default function PlanetScan() {
 function ScanPanel({
   icon,
   label,
+  accent,
   children,
 }: {
   icon: React.ReactNode;
   label: string;
+  accent: string;
   children: React.ReactNode;
 }) {
   return (
     <div className="relative border border-white/10 bg-black/20 p-5">
+      <span
+        className="absolute -left-px -top-px h-3 w-3 border-l border-t"
+        style={{
+          borderColor: accent,
+        }}
+      />
 
-      <span className="absolute -left-px -top-px h-3 w-3 border-l border-t border-[#d7ff00]" />
-
-      <div className="flex items-center gap-2 text-[#d7ff00]">
-
+      <div
+        className="flex items-center gap-2"
+        style={{
+          color: accent,
+        }}
+      >
         {icon}
 
         <span className="font-mono text-[7px] tracking-[0.2em] text-white/30">
           {label}
         </span>
-
       </div>
 
       <div className="mt-5">
         {children}
       </div>
-
     </div>
   );
 }
@@ -558,7 +530,6 @@ function MiniData({
 }) {
   return (
     <div className="border border-white/10 p-4">
-
       <p className="font-mono text-[6px] tracking-[0.18em] text-white/25">
         {label}
       </p>
@@ -571,7 +542,6 @@ function MiniData({
       >
         {value}
       </p>
-
     </div>
   );
 }
@@ -589,14 +559,11 @@ function SectionHeading({
 }) {
   return (
     <div>
-
       <div className="flex items-center gap-4">
-
         <span
           className="font-mono text-[8px]"
           style={{
-            color:
-              accent,
+            color: accent,
           }}
         >
           {number}
@@ -607,13 +574,11 @@ function SectionHeading({
         </h2>
 
         <div className="h-px flex-1 bg-white/10" />
-
       </div>
 
       <p className="ml-8 mt-2 font-mono text-[6px] tracking-[0.17em] text-white/20">
         {subtitle}
       </p>
-
     </div>
   );
 }
@@ -631,22 +596,14 @@ function CapabilityCard({
 }) {
   return (
     <div className="group relative min-h-[230px] border border-white/10 bg-black/20 p-6 transition hover:border-white/20">
-
       <p
         className="font-mono text-[7px]"
         style={{
-          color:
-            accent,
+          color: accent,
         }}
       >
         SYSTEM //
-
-        {String(
-          number
-        ).padStart(
-          2,
-          "0"
-        )}
+        {String(number).padStart(2, "0")}
       </p>
 
       <h3 className="mt-9 text-sm font-medium tracking-[0.08em] text-white/80">
@@ -660,11 +617,9 @@ function CapabilityCard({
       <div
         className="absolute bottom-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
         style={{
-          background:
-            accent,
+          background: accent,
         }}
       />
-
     </div>
   );
 }
@@ -686,11 +641,9 @@ function AccessPanel({
 }) {
   const content = (
     <div className="group relative min-h-[230px] border border-white/10 bg-black/20 p-7 transition hover:border-white/25">
-
       <div
         style={{
-          color:
-            accent,
+          color: accent,
         }}
       >
         {icon}
@@ -703,8 +656,7 @@ function AccessPanel({
       <p
         className="mt-2 font-mono text-[7px] tracking-[0.16em]"
         style={{
-          color:
-            accent,
+          color: accent,
         }}
       >
         {subtitle}
@@ -719,7 +671,6 @@ function AccessPanel({
           ? "CHANNEL AVAILABLE →"
           : "CHANNEL OFFLINE"}
       </p>
-
     </div>
   );
 

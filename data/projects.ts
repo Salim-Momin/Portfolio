@@ -8,6 +8,11 @@ export type Project = {
   classification: string;
   sector: string;
 
+  environment: string;
+  signalStatus: string;
+  threatLevel: string;
+  scanMessage: string;
+
   category: string;
   description: string;
   planetaryDescription: string;
@@ -50,6 +55,15 @@ export const projects: Project[] = [
     classification: "AUTONOMOUS INTELLIGENCE WORLD",
 
     sector: "AI SYSTEMS",
+
+    environment: "NEURAL / SYNTHETIC",
+
+    signalStatus: "STABLE",
+
+    threatLevel: "CONTROLLED",
+
+    scanMessage:
+      "LOCAL INTELLIGENCE SIGNATURE DETECTED",
 
     category: "Personal AI Assistant",
 
@@ -144,6 +158,15 @@ export const projects: Project[] = [
 
     sector: "GENERATIVE AI",
 
+    environment: "LINGUISTIC / SYNTHETIC",
+
+    signalStatus: "HIGH ACTIVITY",
+
+    threatLevel: "MINIMAL",
+
+    scanMessage:
+      "LANGUAGE TRANSFORMATION SIGNAL DETECTED",
+
     category: "AI Prompt Platform",
 
     description:
@@ -236,6 +259,15 @@ export const projects: Project[] = [
     classification: "DEVELOPER UTILITY WORLD",
 
     sector: "DEVELOPER INFRASTRUCTURE",
+
+    environment: "INDUSTRIAL / COMPUTATIONAL",
+
+    signalStatus: "OPERATIONAL",
+
+    threatLevel: "MINIMAL",
+
+    scanMessage:
+      "COMMAND NETWORK RESPONDING",
 
     category: "Developer Productivity",
 
@@ -330,6 +362,15 @@ export const projects: Project[] = [
 
     sector: "AI CODE INTELLIGENCE",
 
+    environment: "UNSTABLE / DIAGNOSTIC",
+
+    signalStatus: "ANOMALIES DETECTED",
+
+    threatLevel: "ELEVATED",
+
+    scanMessage:
+      "SOFTWARE ANOMALIES PRESENT",
+
     category: "AI Code Analysis",
 
     description:
@@ -423,6 +464,15 @@ export const projects: Project[] = [
 
     sector: "BUSINESS AUTOMATION",
 
+    environment: "COMMUNICATION / COMMERCIAL",
+
+    signalStatus: "TRANSMITTING",
+
+    threatLevel: "MINIMAL",
+
+    scanMessage:
+      "ACTIVE COMMUNICATION CHANNELS DETECTED",
+
     category: "Business AI Automation",
 
     description:
@@ -515,6 +565,15 @@ export const projects: Project[] = [
     classification: "HUMAN DEVELOPMENT MONITORING WORLD",
 
     sector: "PERSONAL GROWTH SYSTEMS",
+
+    environment: "BEHAVIORAL / ANALYTICAL",
+
+    signalStatus: "MONITORING",
+
+    threatLevel: "NONE",
+
+    scanMessage:
+      "HUMAN DEVELOPMENT SIGNALS DETECTED",
 
     category: "Habit Tracking Platform",
 
