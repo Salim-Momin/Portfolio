@@ -1,6 +1,8 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
+import {
+  Canvas,
+} from "@react-three/fiber";
 
 import GalaxyScene from "./GalaxyScene";
 
@@ -11,15 +13,17 @@ export default function GalaxyCanvas() {
       <Canvas
         camera={{
           position: [
-            6.5,
-            3.5,
-            12,
+            7.5,
+            4.5,
+            14.5,
           ],
-          fov: 48,
+          fov: 46,
           near: 0.1,
-          far: 200,
+          far: 220,
         }}
+
         dpr={[1, 1.5]}
+
         gl={{
           antialias: true,
           alpha: true,

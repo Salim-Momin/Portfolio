@@ -102,6 +102,8 @@ export default function Home() {
 
   <GalaxyCanvas />
 
+  <div className="pointer-events-none absolute inset-0 z-[5] bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.25)_65%,rgba(0,0,0,0.7)_100%)]" />
+
   {/* TOP LABEL */}
 
   <div className="pointer-events-none absolute left-1/2 top-10 z-10 -translate-x-1/2 text-center">

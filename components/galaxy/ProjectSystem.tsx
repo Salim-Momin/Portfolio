@@ -2,7 +2,9 @@
 
 import * as THREE from "three";
 
-import { projects } from "@/data/projects";
+import {
+  projects,
+} from "@/data/projects";
 
 import ProjectPlanet from "./ProjectPlanet";
 
@@ -25,16 +27,16 @@ function OrbitPath({
         <torusGeometry
           args={[
             radius,
-            0.004,
+            0.006,
             6,
-            220,
+            240,
           ]}
         />
 
         <meshBasicMaterial
           color="#d7ff00"
           transparent
-          opacity={0.055}
+          opacity={0.045}
           blending={
             THREE.AdditiveBlending
           }
@@ -50,20 +52,32 @@ export default function ProjectSystem() {
   return (
     <group>
 
-      {projects.map((project) => (
-        <OrbitPath
-        key={`orbit-${project.id}`}
-        radius={project.orbitRadius}
-        rotation={project.orbitTilt}
-        />
-      ))}
+      {/* ORBIT PATHS */}
 
-      {projects.map((project) => (
-        <ProjectPlanet
-          key={project.id}
-          project={project}
-        />
-      ))}
+      {projects.map(
+        (project) => (
+          <OrbitPath
+            key={`orbit-${project.id}`}
+            radius={
+              project.orbitRadius
+            }
+            rotation={
+              project.orbitTilt
+            }
+          />
+        )
+      )}
+
+      {/* PROJECT PLANETS */}
+
+      {projects.map(
+        (project) => (
+          <ProjectPlanet
+            key={project.id}
+            project={project}
+          />
+        )
+      )}
 
     </group>
   );

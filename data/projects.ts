@@ -4,17 +4,16 @@ export type Project = {
   shortName: string;
   category: string;
   technologies: string[];
-  color: string;
+
+  image: string;
+  accent: string;
+
   orbitRadius: number;
   orbitSpeed: number;
   size: number;
-  texture: string;
   startAngle: number;
-  orbitTilt: [
-  number,
-  number,
-  number
-    ];
+  depth: number;
+  orbitTilt: [number, number, number];
 };
 
 export const projects: Project[] = [
@@ -24,55 +23,57 @@ export const projects: Project[] = [
     shortName: "KAISER",
     category: "Personal AI Assistant",
     technologies: ["Python", "Ollama", "STT", "TTS"],
-    color: "#d7ff00",
-    texture: "/textures/planets/kaiser.png",
-    orbitRadius: 4.2,
-    orbitSpeed: 0.12,
-    size: 0.42,
+
+    image: "/planets/kaiser.png",
+    accent: "#d7ff00",
+
+    orbitRadius: 4.6,
+    orbitSpeed: 0.10,
+    size: 1.15,
     startAngle: 0.2,
-    orbitTilt: [
-  0.3,
-  0.1,
-  0.1,
-],
+    depth: 0.4,
+    orbitTilt: [0.2, 0.1, 0.08],
   },
 
   {
-    id: "prompt-forge",
+    id: "prompt-lab",
     name: "Prompt Transformation Lab",
     shortName: "PROMPT LAB",
     category: "AI Prompt Platform",
-    technologies: ["Next.js", "FastAPI", "Gemini", "PostgreSQL"],
-    color: "#a8c900",
-    texture: "/textures/planets/prompt-lab.png",
-    orbitRadius: 5.2,
-    orbitSpeed: -0.08,
-    size: 0.48,
+    technologies: [
+      "Next.js",
+      "FastAPI",
+      "Gemini",
+      "PostgreSQL",
+    ],
+
+    image: "/planets/prompt-lab.png",
+    accent: "#d7ff00",
+
+    orbitRadius: 5.6,
+    orbitSpeed: -0.075,
+    size: 1.05,
     startAngle: 1.3,
-    orbitTilt: [
-  -0.35,
-  0.25,
-  0.05,
-],
+    depth: -0.8,
+    orbitTilt: [-0.25, 0.1, 0.1],
   },
 
   {
-    id: "developer-cli",
+    id: "dev-cli",
     name: "Developer CLI Toolkit",
     shortName: "DEV CLI",
     category: "Developer Productivity",
     technologies: ["Python", "CLI", "Git", "Automation"],
-    color: "#c6e94d",
-    texture: "/textures/planets/developer-cli.png",
-    orbitRadius: 6.0,
-    orbitSpeed: 0.065,
-    size: 0.38,
-    startAngle: 2.3,
-    orbitTilt: [
-  0.15,
-  -0.3,
-  0.2,
-],
+
+    image: "/planets/dev-cli.png",
+    accent: "#d7ff00",
+
+    orbitRadius: 6.7,
+    orbitSpeed: 0.06,
+    size: 0.95,
+    startAngle: 2.2,
+    depth: -1.4,
+    orbitTilt: [0.15, -0.15, 0.18],
   },
 
   {
@@ -80,18 +81,22 @@ export const projects: Project[] = [
     name: "BugReader AI",
     shortName: "BUGREADER",
     category: "AI Code Analysis",
-    technologies: ["Python", "Flask", "Gemini", "PostgreSQL"],
-    color: "#e4ff6a",
-    texture: "/textures/planets/bugreader.png",
-    orbitRadius: 4.8,
-    orbitSpeed: -0.095,
-    size: 0.44,
-    startAngle: 3.5,
-    orbitTilt: [
-  -0.2,
-  0.1,
-  -0.25,
-],
+    technologies: [
+      "Python",
+      "Flask",
+      "Gemini",
+      "PostgreSQL",
+    ],
+
+    image: "/planets/bugreader.png",
+    accent: "#ff3322",
+
+    orbitRadius: 5.0,
+    orbitSpeed: -0.085,
+    size: 1.05,
+    startAngle: 3.3,
+    depth: 0.8,
+    orbitTilt: [-0.18, 0.12, -0.2],
   },
 
   {
@@ -99,18 +104,22 @@ export const projects: Project[] = [
     name: "AI Business Chatbot",
     shortName: "AI CHATBOT",
     category: "Business Automation",
-    technologies: ["FastAPI", "AI", "PostgreSQL", "Next.js"],
-    color: "#b3d600",
-    texture: "/textures/planets/ai-chatbot.png",
-    orbitRadius: 5.7,
-    orbitSpeed: 0.075,
-    size: 0.40,
-    startAngle: 4.5,
-    orbitTilt: [
-  0.4,
-  0.15,
-  0.1,
-],
+    technologies: [
+      "FastAPI",
+      "AI",
+      "PostgreSQL",
+      "Next.js",
+    ],
+
+    image: "/planets/ai-chatbot.png",
+    accent: "#00ffff",
+
+    orbitRadius: 6.1,
+    orbitSpeed: 0.065,
+    size: 1,
+    startAngle: 4.4,
+    depth: -0.5,
+    orbitTilt: [0.3, 0.1, 0.08],
   },
 
   {
@@ -118,17 +127,20 @@ export const projects: Project[] = [
     name: "TrackFlow",
     shortName: "TRACKFLOW",
     category: "Habit Tracking System",
-    technologies: ["Flask", "PostgreSQL", "JavaScript"],
-    color: "#dfff52",
-    texture: "/textures/planets/trackflow.png",
-    orbitRadius: 6.5,
-    orbitSpeed: -0.055,
-    size: 0.36,
-    startAngle: 5.4,
-    orbitTilt: [
-  -0.3,
-  -0.2,
-  0.15,
-],
+    technologies: [
+      "Flask",
+      "PostgreSQL",
+      "JavaScript",
+    ],
+
+    image: "/planets/trackflow.png",
+    accent: "#9cff00",
+
+    orbitRadius: 7.2,
+    orbitSpeed: -0.05,
+    size: 0.9,
+    startAngle: 5.3,
+    depth: -1.8,
+    orbitTilt: [-0.25, -0.1, 0.15],
   },
 ];

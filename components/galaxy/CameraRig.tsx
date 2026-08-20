@@ -1,39 +1,40 @@
 "use client";
 
-import { useFrame } from "@react-three/fiber";
+import {
+  useFrame,
+} from "@react-three/fiber";
 
 export default function CameraRig() {
   useFrame((state) => {
-    const baseX = 6.5;
-    const baseY = 3.5;
-    const baseZ = 12;
-
-    const mouseX =
-      state.pointer.x * 0.6;
-
-    const mouseY =
-      state.pointer.y * 0.4;
+    const baseX = 7.5;
+    const baseY = 4.5;
+    const baseZ = 14.5;
 
     const targetX =
-      baseX + mouseX;
+      baseX +
+      state.pointer.x * 0.7;
 
     const targetY =
-      baseY + mouseY;
+      baseY +
+      state.pointer.y * 0.45;
 
     state.camera.position.x +=
-      (targetX -
-        state.camera.position.x) *
-      0.018;
+      (
+        targetX -
+        state.camera.position.x
+      ) * 0.018;
 
     state.camera.position.y +=
-      (targetY -
-        state.camera.position.y) *
-      0.018;
+      (
+        targetY -
+        state.camera.position.y
+      ) * 0.018;
 
     state.camera.position.z +=
-      (baseZ -
-        state.camera.position.z) *
-      0.018;
+      (
+        baseZ -
+        state.camera.position.z
+      ) * 0.018;
 
     state.camera.lookAt(
       0,
