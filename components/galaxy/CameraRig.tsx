@@ -1,85 +1,69 @@
 "use client";
 
 import { useFrame } from "@react-three/fiber";
-import {
-  useRef,
-} from "react";
+import { useRef } from "react";
 import * as THREE from "three";
 
-import {
-  useGalaxyStore,
-} from "@/store/galaxyStore";
-
-import {
-  projects,
-} from "@/data/projects";
-
-const DEFAULT_POSITION =
-  new THREE.Vector3(
-    7.5,
-    4.5,
-    14.5
-  );
-
-const DEFAULT_TARGET =
-  new THREE.Vector3(
-    0,
-    0,
-    0
-  );
+import { useGalaxyStore } from "@/store/galaxyStore";
 
 export default function CameraRig() {
-  const selectedProjectId =
-    useGalaxyStore(
-      (state) =>
-        state.selectedProjectId
-    );
+  const activeSection = useGalaxyStore(
+    (state) => state.activeSection
+  );
 
-  const selectedProjectPosition =
-    useGalaxyStore(
-      (state) =>
-        state.selectedProjectPosition
-    );
+  const selectedProjectId = useGalaxyStore(
+    (state) => state.selectedProjectId
+  );
 
-  const lookTarget =
-    useRef(
-      new THREE.Vector3()
-    );
+  const selectedProjectPosition = useGalaxyStore(
+    (state) => state.selectedProjectPosition
+  );
 
-  const desiredCameraPosition =
-    useRef(
-      new THREE.Vector3()
-    );
+  const velocity = useRef(
+    new THREE.Vector3()
+  );
 
-  useFrame((state) => {
-    /*
-     * GALAXY MODE
-     */
+  const targetPosition = useRef(
+    new THREE.Vector3()
+  );
+
+  const lookTarget = useRef(
+    new THREE.Vector3()
+  );
+
+  useFrame((state, delta) => {
+    const pointerX = state.pointer.x;
+    const pointerY = state.pointer.y;
+
+    // ------------------------------------------------
+    // PROJECT LOCK MODE
+    // ------------------------------------------------
 
     if (
-      !selectedProjectId ||
-      !selectedProjectPosition
+      selectedProjectId &&
+      selectedProjectPosition
     ) {
-      desiredCameraPosition.current.set(
-        DEFAULT_POSITION.x +
-          state.pointer.x *
-            0.7,
+      const planetPosition =
+        new THREE.Vector3(
+          selectedProjectPosition.x,
+          selectedProjectPosition.y,
+          selectedProjectPosition.z
+        );
 
-        DEFAULT_POSITION.y +
-          state.pointer.y *
-            0.45,
-
-        DEFAULT_POSITION.z
+      targetPosition.current.set(
+        planetPosition.x + 2.6,
+        planetPosition.y + 1.4,
+        planetPosition.z + 4.5
       );
 
       state.camera.position.lerp(
-        desiredCameraPosition.current,
-        0.025
+        targetPosition.current,
+        0.035
       );
 
       lookTarget.current.lerp(
-        DEFAULT_TARGET,
-        0.05
+        planetPosition,
+        0.07
       );
 
       state.camera.lookAt(
@@ -89,62 +73,90 @@ export default function CameraRig() {
       return;
     }
 
-    /*
-     * LIVE PLANET POSITION
-     */
+    // ------------------------------------------------
+    // CURSOR FREE-FLOAT MODE
+    // ------------------------------------------------
 
-    const planetPosition =
-      new THREE.Vector3(
-        selectedProjectPosition.x,
-        selectedProjectPosition.y,
-        selectedProjectPosition.z
-      );
+    const skillsMode =
+      activeSection === "SKILLS";
 
-    const project =
-      projects.find(
-        (item) =>
-          item.id ===
-          selectedProjectId
-      );
+    const baseZ =
+      skillsMode ? 13 : 14;
 
-    const planetSize =
-      project?.size ?? 1;  
+    const movementStrength =
+      skillsMode ? 3.2 : 4.2;
 
     /*
-     * CAMERA OFFSET
+     * Cursor controls target velocity.
      *
-     * Camera sits slightly
-     * above/right/front.
+     * pointer.x:
+     * -1 left
+     * +1 right
+     *
+     * pointer.y:
+     * -1 bottom
+     * +1 top
      */
 
-    desiredCameraPosition.current.set(
-      planetPosition.x +
-        planetSize * 2.2,
+    const targetVelocityX =
+      pointerX * movementStrength;
 
-      planetPosition.y +
-        planetSize * 1.2,
+    const targetVelocityY =
+      pointerY * movementStrength * 0.65;
 
-      planetPosition.z +
-        3.8 +
-        planetSize
+    /*
+     * Smooth acceleration.
+     */
+
+    velocity.current.x =
+      THREE.MathUtils.lerp(
+        velocity.current.x,
+        targetVelocityX,
+        0.025
+      );
+
+    velocity.current.y =
+      THREE.MathUtils.lerp(
+        velocity.current.y,
+        targetVelocityY,
+        0.025
+      );
+
+    /*
+     * Target camera position.
+     */
+
+    targetPosition.current.set(
+      velocity.current.x,
+      skillsMode
+        ? 0.7 + velocity.current.y
+        : 1.3 + velocity.current.y,
+      baseZ
     );
 
     /*
-     * SMOOTH CAMERA FLY
+     * Smooth floating movement.
      */
 
     state.camera.position.lerp(
-      desiredCameraPosition.current,
-      0.035
+      targetPosition.current,
+      1 - Math.pow(0.001, delta)
     );
 
     /*
-     * SMOOTH LOOK TARGET
+     * Keep looking near center,
+     * but allow a tiny cursor-driven look offset.
      */
 
+    const desiredLook = new THREE.Vector3(
+      pointerX * 0.7,
+      pointerY * 0.45,
+      0
+    );
+
     lookTarget.current.lerp(
-      planetPosition,
-      0.065
+      desiredLook,
+      0.035
     );
 
     state.camera.lookAt(

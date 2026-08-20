@@ -8,8 +8,18 @@ import SalimCore from "./SalimCore";
 import ProjectSystem from "./ProjectSystem";
 import StarField from "./StarField";
 import GalaxyControls from "./GalaxyControls";
+import SkillsConstellation from "./SkillsConstellation";
+import {
+  useGalaxyStore,
+} from "@/store/galaxyStore";
+import FreeCameraControls from "./FreeCameraControls";
 
 export default function GalaxyScene() {
+  const activeSection =
+  useGalaxyStore(
+    (state) =>
+      state.activeSection
+  );
   return (
     <Suspense fallback={null}>
       <color attach="background" args={["#030303"]} />
@@ -42,9 +52,24 @@ export default function GalaxyScene() {
 
       <ParticleField />
 
-      <SalimCore />
+      {activeSection !==
+        "SKILLS" && (
+        <SalimCore />
+      )}
 
-      <ProjectSystem />
+      {(
+        activeSection ===
+          "GALAXY" ||
+        activeSection ===
+          "PROJECTS"
+      ) && (
+        <ProjectSystem />
+      )}
+
+      {activeSection ===
+        "SKILLS" && (
+        <SkillsConstellation />
+      )}
 
       <GalaxyControls />
 

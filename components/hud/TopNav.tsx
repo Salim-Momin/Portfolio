@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useGalaxyStore,
+  type GalaxySection,
+} from "@/store/galaxyStore";
 
 const navItems = [
   "GALAXY",
@@ -12,7 +15,17 @@ const navItems = [
 ];
 
 export default function TopNav() {
-  const [active, setActive] = useState("GALAXY");
+  const active =
+    useGalaxyStore(
+      (state) =>
+        state.activeSection
+    );
+
+  const setActiveSection =
+    useGalaxyStore(
+      (state) =>
+        state.setActiveSection
+    );
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 h-20 border-b border-white/10 bg-[#030303]/95 backdrop-blur-xl">
@@ -37,7 +50,11 @@ export default function TopNav() {
             return (
               <button
                 key={item}
-                onClick={() => setActive(item)}
+                onClick={() =>
+                  setActiveSection(
+                    item as GalaxySection
+                  )
+                }  
                 className={`relative h-20 font-mono text-[9px] tracking-[0.15em] transition-colors ${
                   selected
                     ? "text-[#d7ff00]"

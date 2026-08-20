@@ -6,6 +6,15 @@ type Vector3Data = {
   z: number;
 };
 
+export type GalaxySection =
+  | "GALAXY"
+  | "PROJECTS"
+  | "SKILLS"
+  | "TIMELINE"
+  | "LAB"
+  | "ABOUT"
+  | "CONTACT";
+
 type GalaxyState = {
   selectedProjectId: string | null;
 
@@ -22,6 +31,12 @@ type GalaxyState = {
     position: Vector3Data
   ) => void;
 
+  activeSection: GalaxySection;
+
+  setActiveSection: (
+    section: GalaxySection
+  ) => void;
+
   openProjectWorld: () => void;
 
   closeProjectWorld: () => void;
@@ -31,6 +46,17 @@ type GalaxyState = {
 
 export const useGalaxyStore =
   create<GalaxyState>((set) => ({
+
+    activeSection: "GALAXY",
+
+    setActiveSection: (section) =>
+      set({
+        activeSection: section,
+        selectedProjectId: null,
+        selectedProjectPosition: null,
+        projectWorldOpen: false,
+      }),
+      
     selectedProjectId: null,
 
     selectedProjectPosition: null,

@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useGalaxyStore,
+  type GalaxySection,
+} from "@/store/galaxyStore";
 
 import {
   Orbit,
@@ -23,7 +26,17 @@ const menu = [
 ];
 
 export default function SideNav() {
-  const [active, setActive] = useState("Galaxy");
+  const active =
+    useGalaxyStore(
+      (state) =>
+        state.activeSection
+    );
+
+  const setActiveSection =
+    useGalaxyStore(
+      (state) =>
+        state.setActiveSection
+    );
 
   return (
     <aside className="fixed bottom-12 left-0 top-20 z-40 hidden w-[90px] border-r border-white/10 bg-[#030303]/95 md:block">
@@ -33,11 +46,15 @@ export default function SideNav() {
         {menu.map((item) => {
           const Icon = item.icon;
           const selected = active === item.name;
+          const section =
+            item.name.toUpperCase() as GalaxySection;
 
+          const isActive =
+            active === section;
           return (
             <button
               key={item.name}
-              onClick={() => setActive(item.name)}
+              onClick={() => setActiveSection(section)}
               className={`group relative flex h-[68px] w-full flex-col items-center justify-center gap-2 transition-colors ${
                 selected
                   ? "text-[#d7ff00]"
