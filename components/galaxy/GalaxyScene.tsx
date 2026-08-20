@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import CameraRig from "./CameraRig";
 import ParticleField from "./ParticleField";
 import SalimCore from "./SalimCore";
+import ProjectSystem from "./ProjectSystem";
 import StarField from "./StarField";
 
 export default function GalaxyScene() {
@@ -40,7 +41,10 @@ export default function GalaxyScene() {
 
       <SalimCore />
 
+      <ProjectSystem />
+
       <CameraRig />
+      
     </Suspense>
   );
 }

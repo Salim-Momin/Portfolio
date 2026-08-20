@@ -8,8 +8,8 @@ export default function GalaxyCanvas() {
     <div className="absolute inset-0">
       <Canvas
         camera={{
-          position: [0, 0, 7],
-          fov: 55,
+          position: [0, 0, 11],
+          fov: 50,
           near: 0.1,
           far: 100,
         }}
