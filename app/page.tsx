@@ -1,6 +1,7 @@
 import PortfolioShell from "@/components/layout/PortfolioShell";
 import HudPanel from "@/components/ui/HudPanel";
 import GalaxyCanvas from "@/components/galaxy/GalaxyCanvas";
+import ProjectDetailPanel from "@/components/hud/ProjectDetailPanel";
 
 function Status({
   label,
@@ -27,7 +28,7 @@ function Status({
 export default function Home() {
   return (
     <PortfolioShell>
-
+      <ProjectDetailPanel />
       <section className="relative min-h-[calc(100vh-128px)] overflow-hidden">
 
         {/* GRID */}

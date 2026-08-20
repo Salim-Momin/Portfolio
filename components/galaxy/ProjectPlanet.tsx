@@ -16,7 +16,7 @@ import {
 import * as THREE from "three";
 
 import type { Project } from "@/data/projects";
-
+import { useGalaxyStore } from "@/store/galaxyStore";
 type Props = {
   project: Project;
 };
@@ -32,6 +32,39 @@ export default function ProjectPlanet({
   const [hovered, setHovered] =
     useState(false);
 
+  const selectedProjectId =
+  useGalaxyStore(
+    (state) =>
+      state.selectedProjectId
+  );
+
+const selectProject =
+  useGalaxyStore(
+    (state) =>
+      state.selectProject
+  );
+
+  const setSelectedProjectPosition =
+  useGalaxyStore(
+    (state) =>
+      state.setSelectedProjectPosition
+  );
+
+  const lastUpdateRef =
+  useRef(0);
+
+const isSelected =
+  selectedProjectId === project.id;
+
+  const worldPositionRef =
+  useRef<THREE.Vector3>(
+    new THREE.Vector3()
+  );
+
+const anotherProjectSelected =
+  selectedProjectId !== null &&
+  !isSelected;
+
   const texture =
     useTexture(project.image);
 
@@ -45,7 +78,8 @@ export default function ProjectPlanet({
     // ORBIT
     if (
       orbitRef.current &&
-      !hovered
+      !hovered &&
+      selectedProjectId === null
     ) {
       orbitRef.current.rotation.z +=
         delta *
@@ -54,8 +88,19 @@ export default function ProjectPlanet({
 
     // PLANET ROOT SCALE + FLOAT
     if (planetRootRef.current) {
-      const targetScale =
-        hovered ? 1.12 : 1;
+      let targetScale = 1;
+
+      if (hovered) {
+        targetScale = 1.12;
+      }
+
+      if (isSelected) {
+        targetScale = 1.35;
+      }
+
+      if (anotherProjectSelected) {
+        targetScale = 0.85;
+      }
 
       const currentScale =
         planetRootRef.current.scale.x;
@@ -98,6 +143,26 @@ export default function ProjectPlanet({
         pulse
       );
     }
+
+    if (
+  planetRootRef.current &&
+  isSelected &&
+  state.clock.elapsedTime -
+    lastUpdateRef.current >
+    0.03
+) {
+  planetRootRef.current.getWorldPosition(
+    worldPositionRef.current
+  );
+
+  setSelectedProjectPosition({
+    x: worldPositionRef.current.x,
+    y: worldPositionRef.current.y,
+    z: worldPositionRef.current.z,
+  });
+  lastUpdateRef.current =
+  state.clock.elapsedTime;
+}
   });
 
   return (
@@ -120,6 +185,29 @@ export default function ProjectPlanet({
           ]}
         >
           <group ref={planetRootRef}>
+
+          {isSelected && (
+  <Html
+    position={[
+      0,
+      project.size + 1.25,
+      0,
+    ]}
+    center
+  >
+    <div className="pointer-events-none whitespace-nowrap">
+
+      <div className="flex items-center gap-2 font-mono text-[6px] tracking-[0.22em] text-[#d7ff00]">
+
+        <span className="h-1.5 w-1.5 rounded-full bg-[#d7ff00] shadow-[0_0_10px_#d7ff00]" />
+
+        TARGET LOCKED
+
+      </div>
+
+    </div>
+  </Html>
+)}
 
             {/* OUTER GLOW */}
 
@@ -189,6 +277,25 @@ export default function ProjectPlanet({
             <Billboard follow>
               <mesh
                 ref={imageRef}
+
+                  onClick={(event) => {
+                    event.stopPropagation();
+
+                    if (planetRootRef.current) {
+                      planetRootRef.current.getWorldPosition(
+                        worldPositionRef.current
+                      );
+
+                      setSelectedProjectPosition({
+                        x: worldPositionRef.current.x,
+                        y: worldPositionRef.current.y,
+                        z: worldPositionRef.current.z,
+                      });
+                    }
+
+                    selectProject(project.id);
+                  }}
+
                 onPointerEnter={(
                   event
                 ) => {
@@ -220,6 +327,11 @@ export default function ProjectPlanet({
                 <meshBasicMaterial
                   map={texture}
                   transparent
+                  opacity={
+                    anotherProjectSelected
+                      ? 0.16
+                      : 1
+                  }
                   toneMapped={false}
                   side={
                     THREE.DoubleSide

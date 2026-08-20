@@ -7,6 +7,7 @@ import ParticleField from "./ParticleField";
 import SalimCore from "./SalimCore";
 import ProjectSystem from "./ProjectSystem";
 import StarField from "./StarField";
+import GalaxyControls from "./GalaxyControls";
 
 export default function GalaxyScene() {
   return (
@@ -44,6 +45,8 @@ export default function GalaxyScene() {
       <SalimCore />
 
       <ProjectSystem />
+
+      <GalaxyControls />
 
       <CameraRig />
 
