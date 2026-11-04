@@ -1,0 +1,40 @@
+.neon-cyan{
+
+box-shadow:
+0 0 10px var(--cyan),
+0 0 30px rgba(0,245,255,.4);
+
+}
+
+
+.neon-purple{
+
+box-shadow:
+0 0 10px var(--amethyst),
+0 0 30px rgba(139,92,246,.4);
+
+}
+
+
+.glass{
+
+background:
+rgba(255,255,255,0.04);
+
+
+backdrop-filter:
+blur(20px);
+
+
+border:
+1px solid rgba(255,255,255,.1);
+
+}
+
+
+.cyber-border{
+
+border:
+1px solid rgba(0,245,255,.3);
+
+}
