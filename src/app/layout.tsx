@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
+import BootSequence 
+from "@/components/terminal/BootSequence";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -35,6 +36,8 @@ return (
 <body
 className={`${geist.variable} ${mono.variable}`}
 >
+
+<BootSequence/>
 
 {children}
 
