@@ -1,17 +1,13 @@
 "use client";
 
-
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 import AsciiLogo from "./AsciiLogo";
-
 import HeroButtons from "./HeroButtons";
-
 import CyberOrb from "@/components/effects/CyberOrb";
 
 
-
-export default function Hero(){
+export default function Hero() {
 
 
 return (
@@ -19,19 +15,17 @@ return (
 <section
 
 className="
-
 min-h-screen
 
 flex
-
 items-center
 
 px-6
+py-20
 
 relative
 
 overflow-hidden
-
 "
 
 >
@@ -40,7 +34,6 @@ overflow-hidden
 <div
 
 className="
-
 max-w-7xl
 
 mx-auto
@@ -49,7 +42,7 @@ grid
 
 md:grid-cols-2
 
-gap-10
+gap-12
 
 items-center
 
@@ -61,68 +54,99 @@ w-full
 
 
 
+{/* LEFT SIDE */}
+
 <motion.div
 
 initial={{
-
 opacity:0,
-
 x:-50
-
 }}
 
 animate={{
-
 opacity:1,
-
 x:0
-
 }}
 
 transition={{
-
 duration:0.8
-
 }}
 
 >
 
+
+{/* Status */}
+
+<div
+
+className="
+inline-flex
+
+items-center
+
+gap-2
+
+px-4
+
+py-2
+
+rounded-full
+
+border
+
+border-cyan-400/30
+
+bg-cyan-400/5
+
+text-cyan-400
+
+font-mono
+
+text-sm
+
+mb-8
+"
+
+>
+
+<span
+className="
+w-2
+h-2
+
+rounded-full
+
+bg-green-400
+
+animate-pulse
+"
+/>
+
+Available for Opportunities
+
+</div>
+
+
+
+{/* ASCII NAME */}
 
 <AsciiLogo/>
 
 
 
-<h1
 
-className="
-
-mt-8
-
-text-5xl
-
-md:text-7xl
-
-font-bold
-
-"
-
->
-
-Salim Momin
-
-</h1>
-
-
+{/* ROLE */}
 
 <h2
 
 className="
-
-mt-4
+mt-8
 
 text-xl
 
 md:text-3xl
+
+font-mono
 
 text-cyan-400
 
@@ -130,13 +154,26 @@ text-cyan-400
 
 >
 
-Full Stack Developer
+&gt; Full Stack Developer
 
 <br/>
 
-<span className="text-purple-400">
+<span
 
-AI Engineer
+className="
+text-purple-400
+"
+
+>
+
+&amp; AI Engineer
+
+</span>
+
+
+<span className="animate-pulse">
+
+_
 
 </span>
 
@@ -145,29 +182,42 @@ AI Engineer
 
 
 
+
+
+{/* DESCRIPTION */}
+
 <p
 
 className="
-
 mt-6
 
 text-gray-400
 
-max-w-lg
+max-w-xl
+
+text-base
+
+md:text-lg
+
+leading-relaxed
 
 "
 
 >
 
-I build AI-powered applications,
-developer tools and modern software
-products.
+I build modern web applications,
+AI-powered tools and developer
+products that solve real-world problems.
 
 </p>
 
 
 
+
+{/* BUTTONS */}
+
 <HeroButtons/>
+
 
 
 
@@ -176,13 +226,16 @@ products.
 
 
 
+
+{/* RIGHT SIDE */}
+
 <motion.div
 
 initial={{
 
 opacity:0,
 
-scale:.7
+scale:0.7
 
 }}
 
@@ -222,6 +275,7 @@ justify-center
 
 
 </section>
+
 
 )
 
