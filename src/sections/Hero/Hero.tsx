@@ -21,7 +21,8 @@ flex
 items-center
 
 px-6
-py-20
+pt-40
+pb-20
 
 relative
 

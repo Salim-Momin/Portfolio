@@ -1,33 +1,49 @@
 "use client";
 
+import { useState } from "react";
+import { commands } from "@/data/commands";
 
-import CommandList from "./CommandList";
+
+export default function TerminalNav() {
+
+const [open,setOpen] = useState(false);
 
 
-export default function TerminalNav(){
+function scrollToSection(target:string){
+
+const element = document.getElementById(target);
+
+if(element){
+
+element.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+setOpen(false);
+
+}
 
 
 return (
 
-<div
+<nav
 
 className="
 fixed
 
-top-6
+top-5
 
 left-1/2
 
 -translate-x-1/2
 
+z-50
 
-z-40
+w-[92%]
 
-
-w-[90%]
-
-max-w-3xl
-
+max-w-5xl
 
 "
 
@@ -41,19 +57,33 @@ bg-black/70
 
 backdrop-blur-xl
 
-
 border
 
 border-cyan-400/30
 
+rounded-2xl
 
-rounded-xl
+shadow-[0_0_30px_rgba(0,245,255,.15)]
+
+"
+
+>
 
 
-shadow-[0_0_30px_rgba(0,245,255,.2)]
+{/* TOP BAR */}
 
+<div
 
-p-5
+className="
+flex
+
+items-center
+
+justify-between
+
+px-5
+
+py-3
 
 "
 
@@ -67,19 +97,49 @@ flex
 
 items-center
 
-gap-2
-
-mb-5
+gap-3
 
 font-mono
 
-text-cyan-400
+text-sm
 
 "
 
 >
 
-<span>
+
+<div className="flex gap-2">
+
+
+<span className="
+w-3
+h-3
+rounded-full
+bg-red-500
+"/>
+
+
+<span className="
+w-3
+h-3
+rounded-full
+bg-yellow-400
+"/>
+
+
+<span className="
+w-3
+h-3
+rounded-full
+bg-green-400
+"/>
+
+
+</div>
+
+
+
+<span className="text-cyan-400">
 
 salim@ascii-os
 
@@ -88,31 +148,158 @@ salim@ascii-os
 
 <span className="text-gray-500">
 
-:
+:~
 
 </span>
 
 
-<span>
+</div>
 
-~
+
+
+<button
+
+onClick={()=>setOpen(!open)}
+
+className="
+md:hidden
+
+text-cyan-400
+
+font-mono
+
+"
+
+>
+
+{open ? "close" : "menu"}
+
+</button>
+
+
+</div>
+
+
+
+
+{/* MENU */}
+
+<div
+
+className={`
+md:flex
+
+items-center
+
+justify-center
+
+gap-8
+
+px-5
+
+pb-4
+
+
+font-mono
+
+text-sm
+
+
+${
+
+open
+?
+"block"
+:
+"hidden md:flex"
+
+}
+
+`}
+
+>
+
+
+{
+commands.map((item)=>(
+
+
+<button
+
+key={item.command}
+
+onClick={()=>scrollToSection(item.target)}
+
+className="
+text-gray-400
+
+hover:text-cyan-400
+
+transition
+
+"
+
+>
+
+
+<span className="text-purple-400">
 
 $
 
 </span>
 
+{" "}
+
+{item.command}
+
+
+</button>
+
+
+))
+
+}
+
+
+
+<button
+
+className="
+px-4
+
+py-2
+
+rounded-lg
+
+border
+
+border-purple-500
+
+text-purple-400
+
+hover:bg-purple-500
+
+hover:text-black
+
+transition
+
+"
+
+>
+
+Resume
+
+</button>
+
+
 
 </div>
 
 
-
-<CommandList/>
-
-
 </div>
 
 
-</div>
+</nav>
 
 )
 
