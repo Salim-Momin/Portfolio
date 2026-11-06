@@ -6,7 +6,8 @@ import {motion} from "framer-motion";
 import AsciiLogo from "./AsciiLogo";
 import CyberVisual from "./CyberVisual";
 import HeroButtons from "./HeroButtons";
-
+import HeroTerminal from "./HeroTerminal";
+import StatusPanel from "./StatusPanel";
 
 export default function Hero(){
 
@@ -143,6 +144,9 @@ systems.
 
 <HeroButtons/>
 
+<HeroTerminal/>
+
+<StatusPanel/>
 
 </motion.div>
 

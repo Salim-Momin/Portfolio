@@ -27,9 +27,10 @@ repeat:Infinity
 
 className="
 
-w-72
-
-h-72
+w-80
+h-80
+md:w-[420px]
+md:h-[420px]
 
 rounded-full
 
@@ -41,7 +42,7 @@ from-cyan-400/30
 
 to-purple-600/30
 
-shadow-[0_0_100px_rgba(0,245,255,.4)]
+shadow-[0_0_60px_rgba(0,245,255,.25)]
 
 "
 
