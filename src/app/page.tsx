@@ -1,43 +1,23 @@
-import GlowCard from "@/components/ui/GlowCard";
-import NeonButton from "@/components/ui/NeonButton";
-import Badge from "@/components/ui/Badge";
-import TerminalWindow from "@/components/ui/TerminalWindow";
-import PanelHeader from "@/components/ui/PanelHeader";
+import Navbar from "@/components/layout/Navbar";
+import DashboardLayout from "@/components/layout/DashboardLayout";
+import Hero from "@/sections/Hero/Hero";
 
 
 export default function Home(){
 
-return (
 
-<main className="p-10 space-y-8">
+return(
 
+<main>
 
-<PanelHeader title="SYSTEM TEST"/>
-
-
-<GlowCard>
-
-<Badge>
-ONLINE
-</Badge>
-
-<br/>
-
-<TerminalWindow>
-
-salim@ascii-os:~$
-
-</TerminalWindow>
+<Navbar/>
 
 
-<NeonButton>
+<DashboardLayout>
 
-START
+<Hero/>
 
-</NeonButton>
-
-
-</GlowCard>
+</DashboardLayout>
 
 
 </main>
