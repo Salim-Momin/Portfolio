@@ -1,35 +1,43 @@
-import GridBackground from "@/components/effects/GridBackground";
+import GlowCard from "@/components/ui/GlowCard";
+import NeonButton from "@/components/ui/NeonButton";
+import Badge from "@/components/ui/Badge";
+import TerminalWindow from "@/components/ui/TerminalWindow";
+import PanelHeader from "@/components/ui/PanelHeader";
 
 
 export default function Home(){
 
-return(
+return (
 
-<main>
-
-<GridBackground/>
+<main className="p-10 space-y-8">
 
 
-<div className="
-min-h-screen
-
-flex
-
-items-center
-
-justify-center
-
-font-mono
-
-text-cyan-400
-
-">
+<PanelHeader title="SYSTEM TEST"/>
 
 
-ASCII.OS SYSTEM ONLINE
+<GlowCard>
+
+<Badge>
+ONLINE
+</Badge>
+
+<br/>
+
+<TerminalWindow>
+
+salim@ascii-os:~$
+
+</TerminalWindow>
 
 
-</div>
+<NeonButton>
+
+START
+
+</NeonButton>
+
+
+</GlowCard>
 
 
 </main>
