@@ -1,43 +1,47 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import BootSequence 
-from "@/components/terminal/BootSequence";
 
-const geist = Geist({
-  variable: "--font-geist",
+
+const jetbrains = JetBrains_Mono({
+
+  variable: "--font-mono",
+
   subsets:["latin"],
-});
 
-
-const mono = JetBrains_Mono({
-  variable:"--font-mono",
-  subsets:["latin"],
 });
 
 
 export const metadata: Metadata = {
- title:"Salim Momin | Full Stack Developer",
- description:"ASCII.OS Developer Portfolio",
+
+  title: "Salim Momin | ASCII.OS",
+
+  description:
+  "Full Stack Developer & AI Engineer building modern software systems.",
+
 };
 
 
 export default function RootLayout({
- children,
+
+children,
+
 }: Readonly<{
- children: React.ReactNode;
+
+children: React.ReactNode;
+
 }>) {
+
 
 return (
 
 <html lang="en">
 
 <body
-className={`${geist.variable} ${mono.variable}`}
->
 
-<BootSequence/>
+className={`${jetbrains.variable} antialiased`}
+
+>
 
 {children}
 

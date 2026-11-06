@@ -1,51 +1,34 @@
-@import "tailwindcss";
-@import "../styles/effects.css";
-
-
 :root {
 
---background:#050505;
+--background:#05070A;
 
---foreground:#FFFFFF;
+--surface:#0B111B;
 
-
-/* Cyber Colors */
+--surface-light:#111827;
 
 --cyan:#00F5FF;
 
---amethyst:#8B5CF6;
+--purple:#8B5CF6;
 
-
-/* Cards */
-
---card:#0A0A0F;
-
---border:#1F2937;
-
-
-/* Text */
+--text:#E5E7EB;
 
 --muted:#94A3B8;
 
 }
 
+
 body{
 
 background:
-radial-gradient(
-circle at top,
-rgba(0,245,255,0.08),
-transparent 30%
-),
 
-var(--background);
+#05070A;
 
+color:
 
-color:var(--foreground);
+var(--text);
 
 font-family:
-var(--font-geist);
 
-overflow-x:hidden;
+var(--font-mono);
 
 }

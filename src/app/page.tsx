@@ -1,6 +1,3 @@
-import Hero from "@/sections/Hero/Hero";
-import About from "@/sections/About/About";
-import TerminalNav from "@/components/terminal/TerminalNav";
 import GridBackground from "@/components/effects/GridBackground";
 
 
@@ -12,11 +9,28 @@ return(
 
 <GridBackground/>
 
-<TerminalNav/>
 
-<Hero/>
+<div className="
+min-h-screen
 
-<About/>
+flex
+
+items-center
+
+justify-center
+
+font-mono
+
+text-cyan-400
+
+">
+
+
+ASCII.OS SYSTEM ONLINE
+
+
+</div>
+
 
 </main>
 

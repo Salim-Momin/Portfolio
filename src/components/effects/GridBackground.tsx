@@ -1,17 +1,38 @@
 export default function GridBackground(){
 
-return (
+return(
 
 <div
+
 className="
 fixed
+
 inset-0
+
 -z-10
 
-bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)]
-bg-[size:50px_50px]
+bg-black
+
 "
+
+>
+
+<div
+
+className="
+absolute
+
+inset-0
+
+bg-[linear-gradient(rgba(0,245,255,0.05)1px,transparent1px),linear-gradient(90deg,rgba(0,245,255,0.05)1px,transparent1px)]
+
+bg-[size:40px_40px]
+
+"
+
 />
+
+</div>
 
 )
 
